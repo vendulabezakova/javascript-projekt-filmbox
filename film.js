@@ -143,11 +143,7 @@ const filmy = [
 		premiera: '2022-12-24',
 	},
 ]
-/*
-const premieraFilmu = dayjs('');
-const premieraElement = document.querySelector('#premiera');
-premieraElement.innerHTML = `Premiéra <strong>${premieraFilmu.format('D. M. YYYY')}</strong>`;
-*/
+
   
 const filmId = location.hash.slice(1);
 
@@ -156,6 +152,19 @@ for (const film of filmy) {
 	  document.querySelector('.card-title').textContent = film.nazev;
 	  document.querySelector('img').src = film.plakat.url;
 	  document.querySelector('.card-text').textContent = film.popis;
-	  document.getElementById('premiera').textContent = `Premiéra: ${film.premiera}`;
+	  //formátování data
+	  const premieraDate = dayjs(film.premiera);
+	  const formattedPremiera = premieraDate.format('D. M. YYYY');
+	  document.getElementById('premiera').textContent = `Premiéra: ${formattedPremiera}`;
 	}
   }
+
+//Dodělat: Bonus Premiéra (kolik dní uběhlo od premiéry nebo za kolik dní premiéra bude)
+
+
+//Dodělat: Poznámka
+/*const filmPoznamka = document.querySelector('#note-form')
+filmPoznamka.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+});*/
