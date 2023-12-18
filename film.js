@@ -161,7 +161,7 @@ for (const film of filmy) {
   }
 }
 
-
+// Hodnocení
 const stars = document.querySelectorAll('.button-star');
 
 stars.forEach((star, index) => {
@@ -188,3 +188,35 @@ function unhighlightStars() {
 	star.classList.add('far');
   });
 }
+
+
+// Poznámka k filmu
+const noteForm = document.querySelector('#note-form');
+
+noteForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const noteText = document.getElementById('message-input').value;
+
+  const termsCheckbox = document.getElementById('terms-checkbox');
+
+  if (!noteText.trim()) {
+    document.getElementById('message-input').classList.add('is-invalid');
+  } else {
+    document.getElementById('message-input').classList.remove('is-invalid');
+  }
+
+  if (!termsCheckbox.checked) {
+    document.getElementById('terms-checkbox').classList.add('is-invalid');
+  } else {
+    document.getElementById('terms-checkbox').classList.remove('is-invalid');
+  }
+
+// Vložit poznámku do stránku
+  if (noteText.trim() && termsCheckbox.checked) {
+    const cardText = document.createElement('p');
+    cardText.classList.add('card-text');
+    cardText.textContent = noteText;
+    document.getElementById('note-form').replaceWith(cardText);
+  }
+});
