@@ -148,23 +148,43 @@ const filmy = [
 const filmId = location.hash.slice(1);
 
 for (const film of filmy) {
-	if (film.id === filmId) {
-	  document.querySelector('.card-title').textContent = film.nazev;
-	  document.querySelector('img').src = film.plakat.url;
-	  document.querySelector('.card-text').textContent = film.popis;
-	  //formátování data
-	  const premieraDate = dayjs(film.premiera);
-	  const formattedPremiera = premieraDate.format('D. M. YYYY');
-	  document.getElementById('premiera').textContent = `Premiéra: ${formattedPremiera}`;
-	}
+  if (film.id === filmId) {
+    document.querySelector('.card-title').textContent = film.nazev;
+    document.querySelector('img').src = film.plakat.url;
+    document.querySelector('.card-text').textContent = film.popis;
+
+    // Formátování data
+    const premieraDate = dayjs(film.premiera);
+    const diffDays = Math.abs(premieraDate.diff(dayjs(), 'day')); // Math.abs = absolutní hodnota rozdílu
+    const formattedPremiera = premieraDate.format('D. M. YYYY');
+    document.getElementById('premiera').textContent = `Premiéra: ${formattedPremiera} (před ${diffDays} dny).`;
   }
+}
 
-//Dodělat: Bonus Premiéra (kolik dní uběhlo od premiéry nebo za kolik dní premiéra bude)
 
+const stars = document.querySelectorAll('.button-star');
 
-//Dodělat: Poznámka
-/*const filmPoznamka = document.querySelector('#note-form')
-filmPoznamka.addEventListener('submit', (event) => {
-    event.preventDefault();
+stars.forEach((star, index) => {
+  star.addEventListener('mouseover', () => {
+	highlightStars(index);
+  });
 
-});*/
+  star.addEventListener('mouseout', () => {
+	unhighlightStars();
+  });
+
+});
+
+function highlightStars(index) {
+  for (let i = 0; i <= index; i++) {
+	stars[i].classList.add('fas');
+	stars[i].classList.remove('far');
+  }
+}
+
+function unhighlightStars() {
+  stars.forEach(star => {
+	star.classList.remove('fas');
+	star.classList.add('far');
+  });
+}
